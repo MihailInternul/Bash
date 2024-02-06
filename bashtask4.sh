@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Write caesar cipher script accepting three parameters -s <shift> -i <input file> -o <output file>
+
 usage() {
     echo "Usage: $0 -s <shift> -i <input file> -o <output file>"
     exit 1

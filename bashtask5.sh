@@ -8,6 +8,8 @@
 # If -u is passed, script converts all the text to upper case
 # Script should work with -i <input file> -o <output file> tags
 
+
+# Parse command line arguments
 while getopts ":i:o:vsrlu" opt; do
   case $opt in
     i)
@@ -21,6 +23,8 @@ while getopts ":i:o:vsrlu" opt; do
       ;;
     s)
       substitute=true
+      substitute_string=$OPTARG
+      replacement_string=${@:$OPTIND:1}
       ;;
     r)
       reverse_lines=true
@@ -57,7 +61,7 @@ if [ "$reverse_case" = true ]; then
 fi
 
 if [ "$substitute" = true ]; then
-    content=$(echo "$content" | sed 's/<A_WORD>/<B_WORD>/g')
+    content=$(echo "$content" | sed "s/$substitute_string/$replacement_string/g")
 fi
 
 if [ "$reverse_lines" = true ]; then
@@ -76,4 +80,3 @@ fi
 echo "$content" > "$output_file"
 
 echo "Transformation completed. Output written to: $output_file"
-

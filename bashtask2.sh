@@ -9,6 +9,7 @@
 # Operation: <operation>
 # Numbers: <all space-separated numbers>
 
+
 # Function to display debug information
 print_debug_info() {
     echo "User: $(whoami)"
@@ -54,6 +55,22 @@ case $operation in
         result=${numbers[0]}
         for ((i=1; i<${#numbers[@]}; i++)); do
             result=$((result - numbers[i]))
+        done
+        ;;
+    \*)
+        result=1
+        for num in "${numbers[@]}"; do
+            result=$((result * num))
+        done
+        ;;
+    %)
+        result=${numbers[0]}
+        for ((i=1; i<${#numbers[@]}; i++)); do
+            if [ "${numbers[i]}" -eq 0 ]; then
+                echo "Error: Division by zero"
+                exit 1
+            fi
+            result=$((result % numbers[i]))
         done
         ;;
     *)
